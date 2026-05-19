@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMT SA LLC — Brand Positioning Brief 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0C0C0E;
+    --ink-2: #1A1A1F;
+    --ink-3: #252530;
+    --paper: #F5F2EC;
+    --paper-2: #EDE9E1;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --muted: #7A7870;
+    --muted-2: #9E9C96;
+    --accent: #C9A84C;
+    --danger-soft: #3D1A1A;
+    --success-soft: #1A2E20;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(12,12,14,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(201,168,76,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── SECTIONS ─── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 7rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-full {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* ─── LABELS ─── */
+  .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 0.5px;
+    background: var(--gold);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 0.95rem;
+    color: var(--muted-2);
+    max-width: 480px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+    margin-bottom: 3.5rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .meta-item {
+    border-top: 0.5px solid rgba(201,168,76,0.3);
+    padding-top: 1rem;
+  }
+
+  .meta-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--gold);
+    display: block;
+  }
+
+  .meta-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ─── DIVIDER LINE ─── */
+  .rule {
+    width: 100%;
+    height: 0.5px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+    margin: 0;
+  }
+
+  /* ─── GAP ANALYSIS ─── */
+  .gap-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(255,255,255,0.06);
+  }
+
+  .gap-cell {
+    background: var(--ink);
+    padding: 2.5rem;
+  }
+
+  .gap-cell.before {
+    background: rgba(20,10,10,0.8);
+    border-right: 0.5px solid rgba(255,255,255,0.06);
+  }
+
+  .gap-cell.after {
+    background: rgba(10,20,12,0.8);
+  }
+
+  .gap-cell-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 0.5px solid;
+  }
+
+  .before .gap-cell-label { color: #8B4444; border-color: rgba(139,68,68,0.3); }
+  .after .gap-cell-label { color: #4A8B5E; border-color: rgba(74,139,94,0.3); }
+
+  .gap-item {
+    font-size: 0.85rem;
+    color: var(--muted-2);
+    line-height: 1.7;
+    padding: 0.6rem 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .gap-item:last-child { border-bottom: none; }
+
+  .gap-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 0.55rem;
+  }
+
+  .before .gap-dot { background: #8B4444; }
+  .after .gap-dot { background: #4A8B5E; }
+
+  /* ─── COMPETITORS ─── */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .comp-card {
+    background: var(--ink-2);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .comp-card:hover { background: var(--ink-3); }
+
+  .comp-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .comp-card:hover::before { opacity: 1; }
+
+  .comp-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .comp-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--paper);
+    margin-bottom: 0.25rem;
+  }
+
+  .comp-url {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .comp-strength-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .comp-strength {
+    font-size: 0.85rem;
+    color: var(--muted-2);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .comp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .comp-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border: 0.5px solid rgba(201,168,76,0.25);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .comp-edge-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #4A8B5E;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .comp-edge {
+    font-size: 0.82rem;
+    color: rgba(74,139,94,0.85);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* ─── BRAND CONCEPTS ─── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .concept-card {
+    padding: 3rem 2.25rem;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .concept-card.c1 { background: #090909; }
+  .concept-card.c2 { background: #0A0C14; }
+  .concept-card.c3 { background: #0A120C; }
+
+  .concept-card:hover { filter: brightness(1.15); }
+
+  .concept-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .concept-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .c1 .concept-name { color: #00CFCF; }
+  .c2 .concept-name { color: #6B8FBF; }
+  .c3 .concept-name { color: #5CB87A; }
+
+  .concept-archetype {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .concept-prop {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-left: 2px solid;
+  }
+
+  .c1 .concept-prop { color: #00CFCF; border-color: rgba(0,207,207,0.3); background: rgba(0,207,207,0.04); }
+  .c2 .concept-prop { color: #6B8FBF; border-color: rgba(107,143,191,0.3); background: rgba(107,143,191,0.04); }
+  .c3 .concept-prop { color: #5CB87A; border-color: rgba(92,184,122,0.3); background: rgba(92,184,122,0.04); }
+
+  .concept-desc {
+    font-size: 0.82rem;
+    color: var(--muted-2);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .concept-palette {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+    align-items: center;
+  }
+
+  .palette-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+
+  .palette-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-left: 4px;
+  }
+
+  .concept-audience {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+  }
+
+  .concept-audience span {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    color: var(--muted-2);
+    text-transform: none;
+    letter-spacing: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .tl-card {
+    background: var(--ink-2);
+    padding: 2.25rem;
+    position: relative;
+  }
+
+  .tl-days {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .tl-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--paper);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .tl-items {
+    list-style: none;
+  }
+
+  .tl-item {
+    font-size: 0.8rem;
+    color: var(--muted-2);
+    line-height: 1.6;
+    padding: 0.4rem 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.04);
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .tl-item::before {
+    content: '—';
+    color: var(--gold);
+    flex-shrink: 0;
+    opacity: 0.5;
+    font-size: 0.7rem;
+    margin-top: 0.15rem;
+  }
+
+  .tl-checkpoint {
+    margin-top: 1.25rem;
+    padding: 0.6rem 0.875rem;
+    background: rgba(201,168,76,0.08);
+    border: 0.5px solid rgba(201,168,76,0.25);
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-head {
+    margin-bottom: 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.1;
+    color: var(--paper);
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .section-desc {
+    font-size: 0.85rem;
+    color: var(--muted-2);
+    line-height: 1.8;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 0.5px solid rgba(255,255,255,0.06);
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .footer-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .gap-grid, .concept-grid, .comp-grid { grid-template-columns: 1fr; }
+    .timeline-grid { grid-template-columns: 1fr 1fr; }
+    .section-head { grid-template-columns: 1fr; }
+    .hero-title { font-size: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  /* ─── INTRO BADGE ─── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    border: 0.5px solid rgba(201,168,76,0.35);
+    padding: 0.4rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">TMT SA LLC</div>
+  <ul class="nav-links">
+    <li><a href="#gap">Current State</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#identity">Brand Direction</a></li>
+    <li><a href="#plan">30-Day Plan</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge"><div class="badge-dot"></div> Confidential — Brand Positioning Brief 2026</div>
+  <p class="hero-eyebrow">GlassBox IA × TMT SA LLC</p>
+  <h1 class="hero-title">
+    From operator<br>to <em>enterprise</em><br>partner.
+  </h1>
+  <p class="hero-sub">
+    A forensic repositioning of TMT SA LLC's digital architecture to compete directly with the LatAm nearshore market's most funded players — and win on precision where they fail on volume.
+  </p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-val">Phase 1</span>
+      <span class="meta-label">Active engagement</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val">30 days</span>
+      <span class="meta-label">Build window</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val">$1M</span>
+      <span class="meta-label">Revenue target</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val">4</span>
+      <span class="meta-label">Core deliverables</span>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- GAP ANALYSIS -->
+<section id="gap">
+  <div class="section-head reveal">
+    <div>
+      <div class="label">01 — Current State</div>
+      <h2 class="section-title">The gap that<br>needs <em>closing.</em></h2>
+    </div>
+    <p class="section-desc">
+      TMT SA LLC's current digital presence was built to attract LatAm talent. The new architecture must be built to convert U.S. enterprise buyers — CTOs and VPs of Engineering making six-figure hiring decisions.
+    </p>
+  </div>
+
+  <div class="gap-grid reveal">
+    <div class="gap-cell before">
+      <div class="gap-cell-label">tmtsallc.com — Today</div>
+      <div class="gap-item"><div class="gap-dot"></div><span>Spanish-first copy written for job seekers, not buyers</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>Hero headline: "Searching for the Top Talent" — zero enterprise positioning</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>No client proof — zero logos, testimonials, or placement metrics</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>Three brand names operating simultaneously with no coherent identity</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>Generic Wix template with no visual authority signal</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>LinkedIn: 81 followers — invisible to U.S. decision-makers</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>No compliance language — CFOs and legal teams cannot assess risk</span></div>
+    </div>
+    <div class="gap-cell after">
+      <div class="gap-cell-label">TMT SA LLC — After Phase 1</div>
+      <div class="gap-item"><div class="gap-dot"></div><span>English-first, buyer-led copy speaking directly to CTOs and VPs Eng</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>Single, powerful value proposition anchored in outcomes — not services</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>Proof architecture: placement metrics, anonymized stats, and social proof</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>One name. One visual identity. One professional digital presence.</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>Enterprise-grade design with institutional authority signals</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>LinkedIn authority content targeting U.S. tech decision-makers</span></div>
+      <div class="gap-item"><div class="gap-dot"></div><span>W-8BEN compliance + PE protection language built into the site</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- MARKET -->
+<section id="market">
+  <div class="section-head reveal">
+    <div>
+      <div class="label">02 — The Market</div>
+      <h2 class="section-title">Who we're<br><em>positioning</em> against.</h2>
+    </div>
+    <p class="section-desc">
+      The LatAm nearshore market is polarized between high-volume AI factories and legacy integrators. The boutique precision gap is real — and unclaimed.
+    </p>
+  </div>
+
+  <div class="comp-grid reveal">
+
+    <div class="comp-card">
+      <div class="comp-number">01 / ENTERPRISE FACTORY</div>
+      <div class="comp-name">Inclusion Cloud</div>
+      <div class="comp-url">inclusioncloud.com</div>
+      <div class="comp-strength-label">What they do well</div>
+      <div class="comp-strength">Institutional scale with a proprietary AI recruiting engine (inMOVE™) trained on 1M+ candidates. Heavy compliance badges — SOC 2, ISO 27001 — that pacify enterprise procurement. Promises elite resources in 72 hours.</div>
+      <div class="comp-tags">
+        <span class="comp-tag">AI-powered</span>
+        <span class="comp-tag">1M+ database</span>
+        <span class="comp-tag">72hr delivery</span>
+        <span class="comp-tag">SOC 2</span>
+      </div>
+      <div class="comp-edge-label">Our positioning edge</div>
+      <div class="comp-edge">Where they optimize for speed and volume, we optimize for fidelity. Every candidate passes human, peer-level architectural review — not algorithmic filtering. Boutique precision over factory throughput.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-number">02 / LEGACY INTEGRATOR</div>
+      <div class="comp-name">Iceberg Solutions</div>
+      <div class="comp-url">icebergsolutions.com</div>
+      <div class="comp-strength-label">What they do well</div>
+      <div class="comp-strength">30 years of operational credibility with major enterprise clients — Assurant, Falabella, HP. Owner-operated positioning that projects executive accountability. Focus on mission-critical legacy systems and GRC software.</div>
+      <div class="comp-tags">
+        <span class="comp-tag">30yr legacy</span>
+        <span class="comp-tag">Owner-operated</span>
+        <span class="comp-tag">GRC software</span>
+        <span class="comp-tag">Enterprise logos</span>
+      </div>
+      <div class="comp-edge-label">Our positioning edge</div>
+      <div class="comp-edge">We inherit the "owner-operated accountability" positioning they pioneered, but upgrade the execution to modern agile methodologies, cloud-native stacks, and real-time team integration.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-number">03 / CULTURE INFRASTRUCTURE</div>
+      <div class="comp-name">Howdy</div>
+      <div class="comp-url">howdy.com</div>
+      <div class="comp-strength-label">What they do well</div>
+      <div class="comp-strength">98% team retention rate via dedicated performance coaching and physical "Howdy Houses" across 10 LatAm cities. Identity verification protocols specifically designed to combat deepfake candidates. Transparent flat-fee pricing.</div>
+      <div class="comp-tags">
+        <span class="comp-tag">98% retention</span>
+        <span class="comp-tag">Physical offices</span>
+        <span class="comp-tag">ID verification</span>
+        <span class="comp-tag">Flat fee</span>
+      </div>
+      <div class="comp-edge-label">Our positioning edge</div>
+      <div class="comp-edge">Fully distributed model with no commercial real estate overhead — enabling elite talent extraction from anywhere in the LatAm timezone, not just 10 designated cities.</div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-number">04 / VOLUME MARKETPLACE</div>
+      <div class="comp-name">Revelo</div>
+      <div class="comp-url">revelo.com</div>
+      <div class="comp-strength-label">What they do well</div>
+      <div class="comp-strength">400,000+ pre-vetted developers with a 14-day average time-to-hire. 2,500+ companies served. Risk-free 2-week trial, transparent pricing, and fully managed payroll and legal compliance built into the platform.</div>
+      <div class="comp-tags">
+        <span class="comp-tag">400k+ devs</span>
+        <span class="comp-tag">14-day hire</span>
+        <span class="comp-tag">2500+ clients</span>
+        <span class="comp-tag">Full compliance</span>
+      </div>
+      <div class="comp-edge-label">Our positioning edge</div>
+      <div class="comp-edge">We reject time-to-fill as the primary KPI. Signal extraction over rapid submission — long-term architectural fit over fast résumé throughput. Zero-attrition over 14-day promises.</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- BRAND IDENTITY -->
+<section id="identity">
+  <div class="section-head reveal">
+    <div>
+      <div class="label">03 — Brand Direction</div>
+      <h2 class="section-title">Three directions.<br>One <em>decision.</em></h2>
+    </div>
+    <p class="section-desc">
+      Each concept speaks to a different buyer persona and projects a distinct type of authority. The choice determines every visual and copy decision for the next 30 days.
+    </p>
+  </div>
+
+  <div class="concept-grid reveal">
+
+    <div class="concept-card c1">
+      <div class="concept-num">CONCEPT 01</div>
+      <div class="concept-name">The Surgical Elite</div>
+      <div class="concept-archetype">Archetype: The Specialist</div>
+      <div class="concept-prop">"Extracting Elite LatAm Engineering Signal."</div>
+      <div class="concept-desc">Dark, precise, and technically authoritative. Designed to resonate with highly technical CTOs who view hiring as an extraction of pure engineering signal from market noise. Mirrors the environments they work in — dark-mode IDEs, terminal interfaces, data dashboards.</div>
+      <div class="concept-palette">
+        <div class="palette-dot" style="background:#0A0A0A;border-color:rgba(255,255,255,0.2)"></div>
+        <div class="palette-dot" style="background:#1E293B"></div>
+        <div class="palette-dot" style="background:#00E5FF"></div>
+        <div class="palette-dot" style="background:#FFFFFF"></div>
+        <span class="palette-label">Dark / Cyan / White</span>
+      </div>
+      <div class="concept-audience">
+        Primary buyer
+        <span>CTOs and VPs of Engineering at high-growth SaaS companies</span>
+      </div>
+    </div>
+
+    <div class="concept-card c2">
+      <div class="concept-num">CONCEPT 02</div>
+      <div class="concept-name">The Enterprise Safe-Bet</div>
+      <div class="concept-archetype">Archetype: The Institutional Partner</div>
+      <div class="concept-prop">"Risk-Free Enterprise Nearshore Scaling."</div>
+      <div class="concept-desc">Bright, structured, and compliance-forward. Engineered to eliminate the anxieties of CFOs, procurement officers, and legal counsel. Projects regulatory maturity, total risk elimination, and long-term stability. The visual language of a trusted institutional firm.</div>
+      <div class="concept-palette">
+        <div class="palette-dot" style="background:#0A1128"></div>
+        <div class="palette-dot" style="background:#E2E8F0"></div>
+        <div class="palette-dot" style="background:#FFFFFF"></div>
+        <div class="palette-dot" style="background:#3B82F6"></div>
+        <span class="palette-label">Navy / Platinum / Blue</span>
+      </div>
+      <div class="concept-audience">
+        Primary buyer
+        <span>CFOs, procurement officers, and legal counsel at enterprise firms</span>
+      </div>
+    </div>
+
+    <div class="concept-card c3">
+      <div class="concept-num">CONCEPT 03</div>
+      <div class="concept-name">The Agile Integrator</div>
+      <div class="concept-archetype">Archetype: The Catalyst</div>
+      <div class="concept-prop">"Seamless Nearshore Pod Integration."</div>
+      <div class="concept-desc">Clean, modern, and energetically forward-looking. Focuses on the fluid integration of LatAm engineering pods into U.S. technical teams. Appeals to Directors of Engineering and Operations who need to scale without disrupting existing agile rituals. Modern SaaS aesthetics.</div>
+      <div class="concept-palette">
+        <div class="palette-dot" style="background:#FAFAFA;border-color:rgba(0,0,0,0.15)"></div>
+        <div class="palette-dot" style="background:#333333"></div>
+        <div class="palette-dot" style="background:#10B981"></div>
+        <div class="palette-dot" style="background:#8B5CF6"></div>
+        <span class="palette-label">White / Graphite / Emerald</span>
+      </div>
+      <div class="concept-audience">
+        Primary buyer
+        <span>Directors of Engineering and Operations at scaling tech companies</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- TIMELINE -->
+<section id="plan">
+  <div class="section-head reveal">
+    <div>
+      <div class="label">04 — Execution Plan</div>
+      <h2 class="section-title">30 days.<br>Four <em>phases.</em></h2>
+    </div>
+    <p class="section-desc">
+      Phase 1 is strictly infrastructure. No outbound, no campaigns. The foundation built here determines everything that comes after — including domain reputation, deliverability, and buyer conversion.
+    </p>
+  </div>
+
+  <div class="timeline-grid reveal">
+
+    <div class="tl-card">
+      <div class="tl-days">DAYS 01 — 03</div>
+      <div class="tl-title">Foundation & Onboarding</div>
+      <ul class="tl-items">
+        <li class="tl-item">Brand direction decision locked</li>
+        <li class="tl-item">All digital assets transferred</li>
+        <li class="tl-item">Domain and hosting audit</li>
+        <li class="tl-item">W-8BEN compliance executed</li>
+        <li class="tl-item">Brand positioning brief delivered</li>
+      </ul>
+    </div>
+
+    <div class="tl-card" style="border-left:1px solid rgba(201,168,76,0.15)">
+      <div class="tl-days">DAYS 04 — 15</div>
+      <div class="tl-title">Brand Re-Architecture</div>
+      <ul class="tl-items">
+        <li class="tl-item">Full website redesign and rebuild</li>
+        <li class="tl-item">Enterprise-grade copy and positioning</li>
+        <li class="tl-item">LinkedIn company page overhaul</li>
+        <li class="tl-item">Brand manual delivered</li>
+        <li class="tl-item">Compliance page built</li>
+      </ul>
+      <div class="tl-checkpoint">✦ Day 10 — Brand guide review call</div>
+    </div>
+
+    <div class="tl-card" style="border-left:1px solid rgba(201,168,76,0.15)">
+      <div class="tl-days">DAYS 16 — 25</div>
+      <div class="tl-title">The Authority Asset</div>
+      <ul class="tl-items">
+        <li class="tl-item">2026 LatAm Developer Salary Guide</li>
+        <li class="tl-item">Ecuador salary arbitrage data</li>
+        <li class="tl-item">Design and production</li>
+        <li class="tl-item">LinkedIn deployment strategy</li>
+        <li class="tl-item">CTO lead capture integration</li>
+      </ul>
+      <div class="tl-checkpoint">✦ Day 25 — Full site goes live</div>
+    </div>
+
+    <div class="tl-card" style="border-left:1px solid rgba(201,168,76,0.15)">
+      <div class="tl-days">DAYS 26 — 30</div>
+      <div class="tl-title">Infrastructure Review</div>
+      <ul class="tl-items">
+        <li class="tl-item">Domain warming initiated</li>
+        <li class="tl-item">Email deliverability setup</li>
+        <li class="tl-item">Technical infrastructure audit</li>
+        <li class="tl-item">Phase 1 final review</li>
+        <li class="tl-item">Phase 2 readiness assessment</li>
+      </ul>
+      <div class="tl-checkpoint">✦ Day 30 — Phase 1 completion</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">TMT SA LLC × GlassBox IA</div>
+  <div class="footer-note">Confidential — Brand Positioning Brief — 2026</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
